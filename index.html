@@ -109,6 +109,45 @@ input:checked + .toggle-slider:before { transform:translateX(16px); }
 .ai-off-nudge.dark{background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.1);color:rgba(255,255,255,0.45);}
 .ai-off-nudge.dark strong{color:rgba(255,255,255,0.7);}
 
+/* ── MODE CARD PULSE ── */
+@keyframes modePulse{0%,100%{box-shadow:0 0 0 0 rgba(26,107,60,0.5);}50%{box-shadow:0 0 0 10px rgba(26,107,60,0);}}
+.mode-card.pulse-glow{animation:modePulse 0.9s ease-in-out 3;border-color:var(--green)!important;}
+.mode-choose-hint{text-align:center;font-size:0.82rem;color:#5DD68A;font-weight:600;margin-bottom:0.6rem;opacity:0;transition:opacity 0.4s;letter-spacing:0.02em;}
+.mode-choose-hint.visible{opacity:1;}
+
+/* ── SATISFACTION GATE MODAL ── */
+.sat-gate-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:4000;display:none;align-items:center;justify-content:center;padding:1rem;}
+.sat-gate-overlay.open{display:flex;}
+.sat-gate-box{background:#fff;border-radius:var(--radius-lg);max-width:420px;width:100%;padding:2rem;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.25);animation:fadeUp 0.3s ease;}
+.sat-gate-box h3{font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--ink);margin-bottom:0.5rem;}
+.sat-gate-box p{font-size:0.9rem;color:var(--ink-muted);line-height:1.65;margin-bottom:1.5rem;}
+.sat-gate-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.sat-btn-primary{background:var(--green);color:#fff;border:none;padding:12px 24px;border-radius:30px;font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:700;cursor:pointer;transition:all 0.2s;}
+.sat-btn-primary:hover{background:var(--green-dark);transform:translateY(-1px);}
+.sat-btn-secondary{background:transparent;color:var(--ink);border:1.5px solid var(--border-strong);padding:12px 24px;border-radius:30px;font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:600;cursor:pointer;transition:all 0.2s;}
+.sat-btn-secondary:hover{border-color:var(--green);color:var(--green);}
+
+/* ── USER AI CARD ── */
+.user-ai-card{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:var(--radius);padding:0;margin-top:1.2rem;overflow:hidden;max-width:480px;margin-left:auto;margin-right:auto;}
+.user-ai-toggle-btn{width:100%;background:none;border:none;color:rgba(255,255,255,0.7);font-family:'DM Sans',sans-serif;font-size:0.8rem;font-weight:600;padding:0.75rem 1rem;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:8px;transition:color 0.2s;}
+.user-ai-toggle-btn:hover{color:#fff;}
+.user-ai-toggle-btn .uai-chevron{transition:transform 0.25s;font-size:0.65rem;}
+.user-ai-toggle-btn.open .uai-chevron{transform:rotate(180deg);}
+.user-ai-body{display:none;padding:0 1rem 1rem;border-top:1px solid rgba(255,255,255,0.08);}
+.user-ai-body.open{display:block;}
+.user-ai-note{font-size:0.72rem;color:rgba(255,255,255,0.4);line-height:1.55;margin-bottom:0.75rem;padding-top:0.75rem;}
+.user-ai-row{display:flex;gap:6px;margin-bottom:8px;}
+.uai-provider-btn{flex:1;font-size:0.72rem;font-weight:600;padding:7px 10px;border-radius:6px;cursor:pointer;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.5);font-family:'DM Sans',sans-serif;transition:all 0.2s;min-height:36px;}
+.uai-provider-btn.active-anthropic{background:rgba(59,95,138,0.4);border-color:#3B5F8A;color:#8DBAE8;}
+.uai-provider-btn.active-gemini{background:rgba(26,115,232,0.3);border-color:#1A73E8;color:#7FB3FF;}
+.uai-key-wrap{display:flex;gap:6px;}
+.uai-key-input{flex:1;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:8px 10px;font-family:'DM Sans',sans-serif;font-size:0.78rem;color:#fff;outline:none;min-height:38px;}
+.uai-key-input:focus{border-color:#5DD68A;}
+.uai-save-btn{background:#1A6B3C;border:none;color:#fff;padding:8px 14px;border-radius:6px;font-size:0.75rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;min-height:38px;transition:background 0.2s;}
+.uai-save-btn:hover{background:#2A8B52;}
+.uai-cost{font-size:0.68rem;color:rgba(255,255,255,0.35);margin-top:4px;}
+.uai-status{font-size:0.72rem;color:#5DD68A;margin-top:4px;min-height:1em;}
+
 /* ── DEMO MODE ── */
 .demo-btn-wrap { margin-top:1.5rem; text-align:center; }
 .demo-divider { display:flex; align-items:center; gap:12px; color:rgba(255,255,255,0.2); font-size:0.75rem; margin:0.8rem auto; max-width:380px; }
@@ -521,6 +560,19 @@ input:checked + .toggle-slider:before { transform:translateX(16px); }
   </div>
 </div>
 
+<!-- SATISFACTION GATE MODAL -->
+<div id="sat-gate-overlay" class="sat-gate-overlay" onclick="if(event.target===this)closeSatisfactionGate()">
+  <div class="sat-gate-box">
+    <div style="font-size:2rem;margin-bottom:0.75rem;">🎯</div>
+    <h3>Ready to see your results?</h3>
+    <p>You've completed all 21 questions of your Business ESG Assessment. Are you happy with your answers, or would you like to review and edit them first?</p>
+    <div class="sat-gate-actions">
+      <button class="sat-btn-secondary" onclick="closeSatisfactionGateAndEdit()">&#9998; Edit My Answers</button>
+      <button class="sat-btn-primary" onclick="closeSatisfactionGateAndProceed()">&#10003; Yes, Show My Report</button>
+    </div>
+  </div>
+</div>
+
 <!-- ADMIN PASSWORD MODAL -->
 <div id="admin-auth-overlay" class="admin-panel-overlay" style="display:none; align-items:center; justify-content:center; z-index:3000;" onclick="if(event.target===this) closeAdminAuth()">
   <div class="admin-panel-box" style="max-width:320px; text-align:center; padding:1.5rem; border:2px solid var(--green);">
@@ -663,14 +715,15 @@ input:checked + .toggle-slider:before { transform:translateX(16px); }
 
     <div class="mode-header-label">Begin Your ESG Health Check</div>
     <p class="mode-equal-note">Both modes cover the same 21 questions and produce identical results &#8212; choose whichever feels most comfortable.</p>
-    <div class="mode-selector">
-      <div class="mode-card" onclick="launchMode('grouped')">
+    <div class="mode-choose-hint" id="mode-choose-hint">&#128071; Choose how to begin your Business ESG Assessment</div>
+    <div class="mode-selector" id="mode-selector">
+      <div class="mode-card" id="mode-card-grouped" onclick="launchMode('grouped')">
         <div class="mode-card-icon">&#128203;</div>
         <div class="mode-card-title">Grouped by Theme</div>
         <div class="mode-card-desc">All questions for each ESG theme on one page. 6 short sections, faster to complete.</div>
         <span class="mode-card-badge quick">Recommended</span>
       </div>
-      <div class="mode-card" onclick="launchMode('classic')">
+      <div class="mode-card" id="mode-card-classic" onclick="launchMode('classic')">
         <div class="mode-card-icon">&#8594;</div>
         <div class="mode-card-title">One at a Time</div>
         <div class="mode-card-desc">Each question on its own page. More focused, step-by-step experience.</div>
@@ -678,6 +731,28 @@ input:checked + .toggle-slider:before { transform:translateX(16px); }
       </div>
     </div>
     <p class="disclaimer">No right or wrong answers &#183; No sales pressure &#183; Just honest, actionable insight</p>
+
+    <!-- USER AI CARD -->
+    <div class="user-ai-card" id="user-ai-card">
+      <button class="user-ai-toggle-btn" id="user-ai-toggle-btn" onclick="toggleUserAIPanel()">
+        <span>&#9889; My AI Settings <span style="font-size:0.65rem;font-weight:400;color:rgba(255,255,255,0.4);">(optional — use your own API key)</span></span>
+        <span class="uai-chevron">&#9660;</span>
+      </button>
+      <div class="user-ai-body" id="user-ai-body">
+        <p class="user-ai-note">&#128274; Your key is stored only in this browser and never shared. If an admin key is already active, it takes priority over your key.</p>
+        <div class="user-ai-row">
+          <button class="uai-provider-btn active-anthropic" id="uai-btn-anthropic" onclick="setUserProvider('anthropic')">&#129504; Anthropic</button>
+          <button class="uai-provider-btn" id="uai-btn-gemini" onclick="setUserProvider('gemini')">&#10024; Gemini</button>
+        </div>
+        <div class="uai-key-wrap">
+          <input type="password" class="uai-key-input" id="user-api-key" placeholder="Paste your API key here&#8230;"/>
+          <button class="uai-save-btn" onclick="saveUserApiKey()">Save &amp; Enable</button>
+        </div>
+        <div class="uai-cost" id="uai-cost">~&#163;0.004/session (Anthropic) &nbsp;|&nbsp; ~&#163;0.002/session (Gemini)</div>
+        <div class="uai-status" id="uai-status"></div>
+      </div>
+    </div>
+
     <div class="demo-divider">or</div>
     <div class="demo-btn-wrap">
       <button class="btn-demo" onclick="launchDemo()">&#9654; Run Demo &#8212; See Sample Results</button>
@@ -752,7 +827,7 @@ input:checked + .toggle-slider:before { transform:translateX(16px); }
       </div>
       <div class="form-group"><label>Email address</label><input type="email" id="user-email" placeholder="your@email.com"/></div>
     </div>
-    <button class="btn-unlock" onclick="showResults()">See My ESG Score &#8594;</button>
+    <button class="btn-unlock" onclick="openSatisfactionGate()">See My ESG Score &#8594;</button>
     <div class="skip-link" onclick="showResults()">Skip &#8212; just show me the results</div>
   </div>
 </div>
@@ -763,7 +838,8 @@ input:checked + .toggle-slider:before { transform:translateX(16px); }
     <h1><img id="results-logo" src="" alt="" style="display:none;width:28px;height:28px;border-radius:50%;object-fit:cover;margin-right:6px;vertical-align:middle;"/><span id="results-logo-fallback">&#127807;</span> Your ESG Diagnostic Report</h1>
     <div class="results-header-actions">
       <button class="btn-download" onclick="exportPDF()">&#11015; Export PDF</button>
-      <button class="btn-download" style="background:#0D6B6B; border-color:#0D6B6B; margin-right: 6px;" onclick="downloadBackupData()">💾 Download Backup</button>
+      <button class="btn-download" style="background:#0D6B6B; border-color:#0D6B6B; margin-right: 6px;" onclick="downloadBackupData()">&#128190; Download Backup</button>
+      <button class="btn-retake" style="background:#3B5F8A; border-color:#3B5F8A; color:#fff; margin-right:6px;" onclick="editAnswers()">&#9998; Edit Answers</button>
       <button class="btn-retake" onclick="restartQuiz()">&#8634; Retake</button>
     </div>
   </header>
@@ -1283,6 +1359,7 @@ window.addEventListener('load',()=>{
   }
   // ── End migration ──
   loadBrandingFromStorage();
+  loadUserAIFromStorage();
   const ap = localStorage.getItem('inc_esg_provider')||'anthropic';
   setProvider(ap);
   const aiOn = localStorage.getItem('inc_esg_ai_enabled') === '1';
@@ -1306,8 +1383,10 @@ window.addEventListener('load',()=>{
 // ═══════════════════ API CALL — SUPPORTS BOTH PROVIDERS
 async function callAI(prompt, systemPrompt, maxTokens) {
   maxTokens = maxTokens||400;
-  if(aiProvider==='gemini') {
-    const endpoint = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key='+apiKey;
+  var effectiveKey = getEffectiveApiKey();
+  var effectiveProvider = apiKey ? aiProvider : userAiProvider;
+  if(effectiveProvider==='gemini') {
+    const endpoint = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key='+effectiveKey;
     const body = { contents:[{parts:[{text:(systemPrompt?systemPrompt+'\n\n':'')+prompt}]}], generationConfig:{maxOutputTokens:maxTokens,temperature:0.7} };
     const res = await fetch(endpoint, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)});
     const data = await res.json();
@@ -1316,7 +1395,7 @@ async function callAI(prompt, systemPrompt, maxTokens) {
   } else {
     const res = await fetch('https://api.anthropic.com/v1/messages', {
       method:'POST',
-      headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      headers:{'Content-Type':'application/json','x-api-key':effectiveKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
       body:JSON.stringify({model:'claude-haiku-4-5-20251001', max_tokens:maxTokens, system:systemPrompt||'You are an expert ESG consultant.', messages:[{role:'user',content:prompt}]})
     });
     const data = await res.json();
@@ -1934,15 +2013,12 @@ function exportPDF(){
   doc.setFillColor(...DARK);doc.rect(0,0,W,38,'F');
   doc.setTextColor(93,214,138);doc.setFontSize(18);doc.setFont('helvetica','bold');doc.text('ESG Diagnostic Report',margin,17);
   doc.setFontSize(9);doc.setFont('helvetica','normal');doc.setTextColor(180,220,190);
-  const hideInc = localStorage.getItem('inc_hide_inc') === '1';
+  const showInc = localStorage.getItem('inc_show_inc') === '1';
   var bNameInput = localStorage.getItem('inc_brand_name') || '';
-  var bLabel = bNameInput.trim() || 'ABC limited';
-  let headerText = 'Powered by ' + bLabel;
-  if (!hideInc && bLabel !== 'ABC limited') {
-    headerText += '  |  www.i-nocarbon.com';
-  } else if (!hideInc) {
-    headerText += '  |  www.i-nocarbon.com';
-  }
+  var bLabel = bNameInput.trim() || 'i-nocarbon';
+  let headerText = bLabel ? 'Powered by ' + bLabel : '';
+  if (showInc && headerText) headerText += '  |  www.i-nocarbon.com';
+  else if (showInc) headerText = 'www.i-nocarbon.com';
   if (headerText) doc.text(headerText, margin, 25);
   doc.text('Generated: '+new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}),margin,31);
   y=48;
@@ -1958,8 +2034,18 @@ function exportPDF(){
   const pillars=[{k:'E',l:'Environmental',c:GREEN},{k:'S',l:'Social',c:SLATE},{k:'G',l:'Governance',c:AMBER}];
   const pw=(colW-10)/3;pillars.forEach((p,i)=>{const x=margin+i*(pw+5);doc.setFillColor(...p.c);doc.roundedRect(x,y,pw,14,2,2,'F');doc.setTextColor(255,255,255);doc.setFontSize(14);doc.setFont('helvetica','bold');doc.text(String(pAvg[p.k]),x+pw/2-5,y+9);doc.setFontSize(7);doc.setFont('helvetica','normal');doc.text(p.l,x+pw/2-doc.getTextWidth(p.l)/2,y+13.5);});y+=22;
 
-  // Render AI executive summary card or AI Off warning block
+  // AI disclosure banner at top of report
   const aiOn = localStorage.getItem('inc_esg_ai_enabled') === '1';
+  const userKeyActive = !!localStorage.getItem('inc_user_key_' + (userAiProvider || aiProvider));
+  const aiIsActive = aiOn || (!apiKey && userKeyActive);
+  const effectiveProviderLabel = apiKey ? (aiProvider==='gemini'?'Google Gemini':'Anthropic Claude') : (userAiProvider==='gemini'?'Google Gemini':'Anthropic Claude');
+  if (aiIsActive) {
+    doc.setFillColor(230, 248, 237);
+    doc.roundedRect(margin, y-6, colW, 8, 1, 1, 'F');
+    doc.setTextColor(26,107,60); doc.setFontSize(7.5); doc.setFont('helvetica','bold');
+    doc.text('✨ AI-ENHANCED REPORT — Personalised insights generated by ' + effectiveProviderLabel, margin+4, y-1);
+    y += 4;
+  }
   if (aiOn) {
     const aiText = document.getElementById('exec-summary-text').textContent.trim();
     if (aiText) {
@@ -2048,9 +2134,9 @@ function exportPDF(){
   doc.setDrawColor(200,220,205);doc.line(margin,y,W-margin,y);y+=5;
   doc.setFontSize(7);doc.setTextColor(...MUTED);doc.setFont('helvetica','normal');
   doc.text('Self-reported maturity model. Benchmarks: EcoVadis 2024, GRI Readiness Survey 2023. Not an audited score.',margin,y);y+=4;
-  let footerText = 'AI provider used: '+(aiProvider==='gemini'?'Google Gemini':'Anthropic Claude');
+  let footerText = 'AI: ' + (aiIsActive ? effectiveProviderLabel + ' (active)' : 'not enabled for this report');
   footerText += '  |  Powered by ' + bLabel;
-  if (!hideInc) {
+  if (showInc) {
     footerText += '  |  info@i-nocarbon.com  |  www.i-nocarbon.com';
   }
   doc.text(footerText, margin, y);
@@ -2561,28 +2647,43 @@ function updateMinibarStartButton() {
   var onWelcome = document.getElementById('screen-welcome').classList.contains('active');
   var onResults = document.getElementById('screen-results').classList.contains('active');
   var onQuiz = document.getElementById('screen-quiz').classList.contains('active');
-  
+
   if (onResults) {
     btn.innerHTML = '🔄 Restart / Retake';
   } else if (onQuiz) {
-    btn.innerHTML = '📝 Quiz in Progress';
+    btn.innerHTML = '📋 Business ESG Assessment in Progress';
   } else if (hasProgress) {
-    btn.innerHTML = '📝 Resume Assessment';
+    btn.innerHTML = '📋 Resume Assessment';
   } else {
     btn.innerHTML = '🚀 Start Assessment';
   }
 }
+
 function scrollToTopOrStart() {
   var onWelcome = document.getElementById('screen-welcome').classList.contains('active');
   var onResults = document.getElementById('screen-results').classList.contains('active');
   var onQuiz = document.getElementById('screen-quiz').classList.contains('active');
-  
+
   if (onWelcome) {
     var hasProgress = localStorage.getItem('inc_esg_progress') !== null && answers.some(a => a !== null);
     if (hasProgress) {
       resumeQuiz();
     } else {
+      // Scroll to top then pulse mode cards to guide user
       window.scrollTo({ top: 0, behavior: 'smooth' });
+      setTimeout(function() {
+        var hint = document.getElementById('mode-choose-hint');
+        var c1 = document.getElementById('mode-card-grouped');
+        var c2 = document.getElementById('mode-card-classic');
+        if (hint) hint.classList.add('visible');
+        if (c1) c1.classList.add('pulse-glow');
+        if (c2) c2.classList.add('pulse-glow');
+        setTimeout(function() {
+          if (hint) hint.classList.remove('visible');
+          if (c1) c1.classList.remove('pulse-glow');
+          if (c2) c2.classList.remove('pulse-glow');
+        }, 3000);
+      }, 400);
     }
   } else if (onResults) {
     restartQuiz();
@@ -2591,6 +2692,143 @@ function scrollToTopOrStart() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
+
+// ═══════════════════ SATISFACTION GATE
+function openSatisfactionGate() {
+  var overlay = document.getElementById('sat-gate-overlay');
+  if (overlay) overlay.classList.add('open');
+}
+function closeSatisfactionGate() {
+  var overlay = document.getElementById('sat-gate-overlay');
+  if (overlay) overlay.classList.remove('open');
+}
+function closeSatisfactionGateAndProceed() {
+  closeSatisfactionGate();
+  showResults();
+}
+function closeSatisfactionGateAndEdit() {
+  closeSatisfactionGate();
+  editAnswers();
+}
+
+// ═══════════════════ EDIT ANSWERS
+function editAnswers() {
+  // Go back to quiz at section 1 with existing answers preserved
+  currentDimGroup = 0;
+  showScreen('quiz');
+  renderGrouped(0);
+  updateMinibarStartButton();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ═══════════════════ USER AI PANEL
+var userAiProvider = 'anthropic';
+
+function toggleUserAIPanel() {
+  var body = document.getElementById('user-ai-body');
+  var btn = document.getElementById('user-ai-toggle-btn');
+  if (!body) return;
+  var isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  btn.classList.toggle('open', !isOpen);
+}
+
+function setUserProvider(p) {
+  userAiProvider = p;
+  localStorage.setItem('inc_user_provider', p);
+  document.getElementById('uai-btn-anthropic').className = 'uai-provider-btn' + (p === 'anthropic' ? ' active-anthropic' : '');
+  document.getElementById('uai-btn-gemini').className = 'uai-provider-btn' + (p === 'gemini' ? ' active-gemini' : '');
+  var costEl = document.getElementById('uai-cost');
+  if (costEl) costEl.textContent = p === 'gemini' ? '~£0.002/session (Gemini Flash)' : '~£0.004/session (Anthropic Claude)';
+  // Load saved key for this provider
+  var saved = localStorage.getItem('inc_user_key_' + p);
+  var keyEl = document.getElementById('user-api-key');
+  if (keyEl) keyEl.value = saved || '';
+  updateUserAIStatus();
+}
+
+function saveUserApiKey() {
+  var val = document.getElementById('user-api-key').value.trim();
+  var statusEl = document.getElementById('uai-status');
+  if (!val) { if (statusEl) statusEl.textContent = 'Please paste an API key first.'; return; }
+  localStorage.setItem('inc_user_key_' + userAiProvider, val);
+  if (statusEl) statusEl.textContent = '✓ Key saved — AI enabled for your session';
+  setTimeout(() => updateUserAIStatus(), 2500);
+  // If no admin key is active, activate AI using user key
+  refreshEffectiveApiKey();
+  updateAINudges();
+  updateMinibarStatus();
+}
+
+function clearUserApiKey() {
+  localStorage.removeItem('inc_user_key_' + userAiProvider);
+  var keyEl = document.getElementById('user-api-key');
+  if (keyEl) keyEl.value = '';
+  updateUserAIStatus();
+  refreshEffectiveApiKey();
+}
+
+function updateUserAIStatus() {
+  var statusEl = document.getElementById('uai-status');
+  if (!statusEl) return;
+  var adminKey = localStorage.getItem('inc_esg_key_' + aiProvider);
+  var userKey = localStorage.getItem('inc_user_key_' + userAiProvider);
+  if (adminKey) {
+    statusEl.style.color = '#F59E0B';
+    statusEl.textContent = '⚡ Admin key is active — your key is saved as fallback';
+  } else if (userKey) {
+    statusEl.style.color = '#5DD68A';
+    statusEl.textContent = '✓ Your key is active (' + (userAiProvider === 'gemini' ? 'Gemini' : 'Anthropic') + ')';
+  } else {
+    statusEl.style.color = 'rgba(255,255,255,0.35)';
+    statusEl.textContent = 'No key saved yet';
+  }
+}
+
+function loadUserAIFromStorage() {
+  var p = localStorage.getItem('inc_user_provider') || 'anthropic';
+  userAiProvider = p;
+  document.getElementById('uai-btn-anthropic').className = 'uai-provider-btn' + (p === 'anthropic' ? ' active-anthropic' : '');
+  document.getElementById('uai-btn-gemini').className = 'uai-provider-btn' + (p === 'gemini' ? ' active-gemini' : '');
+  var saved = localStorage.getItem('inc_user_key_' + p);
+  var keyEl = document.getElementById('user-api-key');
+  if (keyEl) keyEl.value = saved || '';
+  var costEl = document.getElementById('uai-cost');
+  if (costEl) costEl.textContent = p === 'gemini' ? '~£0.002/session (Gemini Flash)' : '~£0.004/session (Anthropic Claude)';
+  updateUserAIStatus();
+  refreshEffectiveApiKey();
+}
+
+// Returns the best available API key: admin key first, then user key
+function getEffectiveApiKey() {
+  if (apiKey) return apiKey; // admin key takes priority
+  return localStorage.getItem('inc_user_key_' + (userAiProvider || aiProvider)) || '';
+}
+
+// Refresh AI enabled state considering both admin and user keys
+function refreshEffectiveApiKey() {
+  var effectiveKey = getEffectiveApiKey();
+  if (!apiKey && effectiveKey) {
+    // User has their own key, enable AI silently
+    var wasEnabled = aiEnabled;
+    aiEnabled = true;
+    updateAIBadges();
+    updateChatBadge();
+    updateAINudges();
+    updateMinibarStatus();
+    if (!wasEnabled && overallGlobal > 0) {
+      generateExecSummary();
+      generateNextLevelTeasers();
+    }
+  } else if (!apiKey && !effectiveKey) {
+    aiEnabled = false;
+    updateAIBadges();
+    updateChatBadge();
+    updateAINudges();
+    updateMinibarStatus();
+  }
+}
+
 </script>
 </body>
 </html>
